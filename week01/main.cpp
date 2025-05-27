@@ -12,6 +12,9 @@ using namespace DirectX::SimpleMath;
 // DirectXテクスチャライブラリを使用できるようにする
 #include <DirectXTex.h>
 
+// DirextXフォントライブラリを使用できるようにする
+#include <SpriteFont.h>
+
 #include "DxUtil/D3DManager.h"
 #include "DxUtil/D3DShader.h"
 #include "DxUtil/DxUtilCommon.h"
@@ -23,14 +26,17 @@ HINSTANCE hInst;                                // 現在のインターフェ�
 WCHAR szTitle[MAX_LOADSTRING];                  // タイトル バーのテキスト
 WCHAR szWindowClass[MAX_LOADSTRING];            // メイン ウィンドウ クラス名
 
-// -----------------------------------------------------------------------------
-// 3. デバイス関連（初期化時に作っておく）
-// -----------------------------------------------------------------------------
+// キーボード
 std::unique_ptr<Keyboard> g_keyboard;   // DirectXTK Keyboard
+
+// フォント描画用
+std::unique_ptr<SpriteBatch> g_spriteBatch;
+std::unique_ptr<SpriteFont>  g_spriteFont;
 
 // このコード モジュールに含まれる関数の宣言を転送します:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
+void                Render();
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
@@ -83,6 +89,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         //============================================
         // 画面を塗りつぶす
         D3DManager::GetInstance().Clear(0.3f, 0.5f, 0.9f, 1.0f);
+        
+        // 描画処理
+        Render();
 
         // バックバッファの内容を画面に表示
         D3DManager::GetInstance().Present();
@@ -91,6 +100,27 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     return (int) msg.wParam;
 }
 
+
+
+//
+//  関数: Render()
+//
+//  目的: 画面の描画処理を行います。
+//
+void Render()
+{
+    g_spriteBatch->Begin();
+
+    g_spriteFont->DrawString(g_spriteBatch.get(),
+        L"こんにちは SpriteFont!",
+        Vector2(100, 100));
+
+    g_spriteFont->DrawString(g_spriteBatch.get(),
+        L"こんにちは SpriteFont!",
+        Vector2(100, 150));
+
+    g_spriteBatch->End();
+}
 
 
 //
@@ -149,6 +179,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    // キー入力の初期化
    g_keyboard = std::make_unique<Keyboard>();
+
+   // フォント初期化
+   g_spriteBatch = std::make_unique<SpriteBatch>(D3DManager::GetInstance().GetContext().Get());
+   g_spriteFont = std::make_unique<SpriteFont>(D3DManager::GetInstance().GetDevice().Get(), L"M PLUS 1.spritefont");
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
