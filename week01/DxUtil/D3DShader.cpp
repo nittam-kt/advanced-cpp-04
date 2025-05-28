@@ -44,7 +44,7 @@ bool D3DShader::Compile(const wchar_t* filePath)
 	};
 
 	// 頂点インプットレイアウト作成
-	if (FAILED(D3DManager::GetInstance().GetDevice()->CreateInputLayout(&layout[0], layout.size(), compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), &m_inputLayout)))
+	if (FAILED(D3DManager::GetInstance().GetDevice()->CreateInputLayout(&layout[0], (UINT)layout.size(), compiledVS->GetBufferPointer(), compiledVS->GetBufferSize(), &m_inputLayout)))
 	{
 		DEBUG_OUTPUT(L"頂点インプットレイアウトの作成エラー");
 		return false;

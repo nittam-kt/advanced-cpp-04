@@ -114,6 +114,7 @@
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);$(SolutionDir)DirectXTK\debug_lib\DirectXTK.lib;$(SolutionDir)DirectXTex\debug_lib\DirectXTex.lib</AdditionalDependencies>
+      <MapExports>true</MapExports>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -131,6 +132,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)$(SolutionDir)DirectXTK\release_lib\DirectXTK.lib;$(SolutionDir)DirectXTex\release_lib\DirectXTex.lib</AdditionalDependencies>
+      <MapExports>true</MapExports>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

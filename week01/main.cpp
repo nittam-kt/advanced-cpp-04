@@ -112,11 +112,11 @@ void Render()
     g_spriteBatch->Begin();
 
     g_spriteFont->DrawString(g_spriteBatch.get(),
-        L"こんにちは SpriteFont!",
+        L"SpriteFont",
         Vector2(100, 100));
 
     g_spriteFont->DrawString(g_spriteBatch.get(),
-        L"こんにちは SpriteFont!",
+        L"こんにちは！",
         Vector2(100, 150));
 
     g_spriteBatch->End();
